@@ -17,6 +17,9 @@ var eliminar = (listadoNuevo)=>{
     let indice = eBtnEliminarUp.value;
     console.log(listadoNuevo)
     lista = listadoNuevo.filter((p)=>p.id!=indice)
+    lista = lista.map((p,index)=>{return {...p,'id':index}})
+    //lista = lista.map((p,index)=>{return {'nombre':p.nombre,'apellido':p.apellido,'id':index}})
+    
     console.log(lista)
     localStorage.setItem('personas',JSON.stringify(lista));
     cargarTabla(lista)
@@ -97,5 +100,10 @@ var registrar = ()=>{
     //
     
    }
-
+var cargarDatos = ()=>{
+    let listadoPersonas = localStorage.getItem("personas");
+    let listadoAntiguo = JSON.parse(listadoPersonas);
+    cargarTabla(listadoAntiguo)
+}
 document.getElementById("btn").addEventListener("click",registrar);
+addEventListener('load',cargarDatos)
